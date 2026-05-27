@@ -1,55 +1,86 @@
-<?php include 'db.php'; ?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Student Management System</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body{
+            font-family: Arial;
+            margin:40px;
+            background:#f4f4f4;
+        }
+
+        h2{
+            text-align:center;
+        }
+
+        input{
+            padding:10px;
+            margin:5px;
+        }
+
+        button{
+            padding:10px;
+            background:blue;
+            color:white;
+            border:none;
+        }
+
+        table{
+            width:100%;
+            background:white;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        table,th,td{
+            border:1px solid #ccc;
+        }
+
+        th,td{
+            padding:10px;
+            text-align:center;
+        }
+    </style>
 </head>
+
 <body>
 
 <h2>Student Management System</h2>
 
-<form action="add_student.php" method="POST">
-    <input type="text" name="name" placeholder="Student Name" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="text" name="phone" placeholder="Phone" required>
-    <input type="text" name="course" placeholder="Course" required>
+<input type="text" id="name" placeholder="Student Name">
+<input type="email" id="email" placeholder="Email">
+<input type="text" id="phone" placeholder="Phone">
+<input type="text" id="course" placeholder="Course">
 
-    <button type="submit">Add Student</button>
-</form>
+<button onclick="addStudent()">Add Student</button>
 
-<table>
+<table id="studentTable">
 <tr>
-    <th>ID</th>
     <th>Name</th>
     <th>Email</th>
     <th>Phone</th>
     <th>Course</th>
-    <th>Action</th>
 </tr>
-
-<?php
-$result = mysqli_query($conn, "SELECT * FROM students");
-
-while($row = mysqli_fetch_assoc($result)) {
-?>
-
-<tr>
-    <td><?php echo $row['id']; ?></td>
-    <td><?php echo $row['name']; ?></td>
-    <td><?php echo $row['email']; ?></td>
-    <td><?php echo $row['phone']; ?></td>
-    <td><?php echo $row['course']; ?></td>
-
-    <td>
-        <a href="delete_student.php?id=<?php echo $row['id']; ?>">Delete</a>
-    </td>
-</tr>
-
-<?php } ?>
-
 </table>
+
+<script>
+function addStudent(){
+
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+    let course = document.getElementById("course").value;
+
+    let table = document.getElementById("studentTable");
+
+    let row = table.insertRow();
+
+    row.insertCell(0).innerHTML = name;
+    row.insertCell(1).innerHTML = email;
+    row.insertCell(2).innerHTML = phone;
+    row.insertCell(3).innerHTML = course;
+}
+</script>
 
 </body>
 </html>
